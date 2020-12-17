@@ -18,11 +18,12 @@ body {
     align-items: center;
 }
 
-button {
+#new-book {
     height: 50px;
     width: 120px;
     margin-left: 30px;
 }
+
 h1 {
     margin-left: 10px;
     color: orange;
@@ -88,25 +89,31 @@ h1 {
 }
 
 .delete {
-    display: flex;
     width: 25px;
     height: 25px;
-    font-weight: bold;
-    font-size: 20px;
-    align-items: center;
-    justify-content: center;
     position: absolute;
-    bottom: 15px;
-    left: 0px;
-    
+    right: 28px;
+    top: 0px;
 }
 
 .read-button {
     width: 25px;
     height: 25px;
     position: absolute;
-    right: 30px;
-    bottom: 15px;
+    right: 0px;
+    top: 0px;
+}
+
+.read-badge {
+    position: absolute;
+    top: 20px;
+    left: 60px;
+    font-size: 0.9em;
+    font-weight: bold;
+    background: rgb(247, 212, 60);
+    color: #555;
+    padding: 5px 10px;
+    border-radius: 15px;
 }
 
 label {

@@ -56,16 +56,26 @@ function displayLibrary() {
         readCheck.classList.add('read-button');
         readCheck.innerText='✔';
 
-        card.appendChild(readCheck);
+        let readBadge = document.createElement('div');
+        readBadge.classList.add('read-badge');
+        if (currentBook.read = true) {
+            readBadge.classList.add('invisible');
+        }
+        readBadge.innerText = 'UNREAD';
+
         card.appendChild(deleteBtn);
+        card.appendChild(readCheck);
+        card.appendChild(readBadge);
         info.appendChild(title);
         info.appendChild(author);
         info.appendChild(pages);
         card.appendChild(cover);
         card.appendChild(info);
         list.appendChild(card);
+        updateCards();
     }
 }
+
 function createBook(e) {
     e.preventDefault();
     let entry = new Book()
@@ -76,11 +86,14 @@ function createBook(e) {
     if (document.querySelector('#cover-page').value != undefined) {
         entry.cover = document.querySelector('#cover-page').value;
     }
+
     addToLibrary(entry);
     formBox.classList.add('invisible');
     document.querySelector('form').reset();
     displayLibrary();
 }
+
+
 const list = document.querySelector('.list');
 displayLibrary();
 
@@ -91,5 +104,31 @@ let killBox = document.querySelector('#kill-box');
 let formBox = document.querySelector('#form-box');
 let addBtn = document.querySelector('#new-book');
 
+
 killBox.addEventListener('click', function () { formBox.classList.add('invisible') });
 addBtn.addEventListener('click', function () { formBox.classList.remove('invisible') });
+
+
+function updateCards() {
+    let cards = document.querySelectorAll('.card');
+    
+    for (let el of cards) {
+    let delBtn = el.querySelector('.delete');
+    delBtn.addEventListener('click', function(){
+        let cardIndex = el.id;
+        delete myLibrary[cardIndex];
+        displayLibrary();
+        });
+    
+    let readBtn = el.querySelector('.read-button');
+    let badge = el.querySelector('.read-badge');
+
+    readBtn.addEventListener('click', function() {
+        let read = myLibrary[el.id].read;
+        if (!read) {
+            read = true;
+            badge.classList.add('invisible');
+        }
+    });
+    }   
+}
