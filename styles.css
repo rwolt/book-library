@@ -50,6 +50,7 @@ h1 {
 
 .bookCover {
     margin: 15px;
+    height: 235px;
 }
 
 .info {
@@ -70,7 +71,7 @@ h1 {
     color: #999;
 }
 
-.form-box {
+#form-box {
     width: 40%;
     padding: 0px 50px;
     height: 450px;
@@ -81,8 +82,8 @@ h1 {
     border-radius: 6px;
 }
 
-.visible {
-    display: hidden;
+.invisible {
+    display: none;
 }
 
 

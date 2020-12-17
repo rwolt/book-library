@@ -62,9 +62,12 @@ function createBook(e) {
     entry.author = document.querySelector('#author').value;
     entry.pages = document.querySelector('#pages').value;
     entry.read = document.querySelector('#read').value;
-    // entry.cover = document.querySelector('#cover-page').value;
+    if (document.querySelector('#cover-page').value != undefined) {
+    entry.cover = document.querySelector('#cover-page').value;
+    }
     addToLibrary(entry);
-    //document.querySelector('form').reset;
+    formBox.classList.add('invisible');
+    document.querySelector('form').reset();
     displayLibrary();
 }
 const list = document.querySelector('.list');
@@ -74,7 +77,8 @@ let submit = document.querySelector('#add');
 submit.addEventListener('click', createBook);
 
 let killBox = document.querySelector('#kill-box');
-let formBox = document.querySelector('.form-box');
-let addBtn = document.querySelector('#newBook');
-killBox.addEventListener('click', formBox.classList.add('visible'));
-addBtn.addEventListener('click', formBox.classList.remove('visible'));
+let formBox = document.querySelector('#form-box');
+let addBtn = document.querySelector('#new-book');
+
+killBox.addEventListener('click', function() {formBox.classList.add('invisible')});
+addBtn.addEventListener('click', function() {formBox.classList.remove('invisible')});
