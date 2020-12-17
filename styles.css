@@ -46,6 +46,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     margin: 10px;
+    position: relative;
 }
 
 .bookCover {
@@ -86,6 +87,27 @@ h1 {
     display: none;
 }
 
+.delete {
+    display: flex;
+    width: 25px;
+    height: 25px;
+    font-weight: bold;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 15px;
+    left: 0px;
+    
+}
+
+.read-button {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 30px;
+    bottom: 15px;
+}
 
 label {
     color: white;

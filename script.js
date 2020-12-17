@@ -23,10 +23,11 @@ addToLibrary(cooking);
 
 function displayLibrary() {
     list.innerHTML = '';
-    for(let index in myLibrary) {
+    for (let index in myLibrary) {
         let currentBook = myLibrary[index];
         let card = document.createElement('div');
         card.classList.add('card');
+        card.id = index;
 
         let cover = document.createElement('img');
         cover.classList.add('bookCover');
@@ -47,6 +48,16 @@ function displayLibrary() {
         pages.classList.add('pages');
         pages.innerText = `${currentBook.pages} pages`;
 
+        let deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('delete');
+        deleteBtn.innerText = '-'
+
+        let readCheck = document.createElement('button');
+        readCheck.classList.add('read-button');
+        readCheck.innerText='✔';
+
+        card.appendChild(readCheck);
+        card.appendChild(deleteBtn);
         info.appendChild(title);
         info.appendChild(author);
         info.appendChild(pages);
@@ -63,7 +74,7 @@ function createBook(e) {
     entry.pages = document.querySelector('#pages').value;
     entry.read = document.querySelector('#read').value;
     if (document.querySelector('#cover-page').value != undefined) {
-    entry.cover = document.querySelector('#cover-page').value;
+        entry.cover = document.querySelector('#cover-page').value;
     }
     addToLibrary(entry);
     formBox.classList.add('invisible');
@@ -80,5 +91,5 @@ let killBox = document.querySelector('#kill-box');
 let formBox = document.querySelector('#form-box');
 let addBtn = document.querySelector('#new-book');
 
-killBox.addEventListener('click', function() {formBox.classList.add('invisible')});
-addBtn.addEventListener('click', function() {formBox.classList.remove('invisible')});
+killBox.addEventListener('click', function () { formBox.classList.add('invisible') });
+addBtn.addEventListener('click', function () { formBox.classList.remove('invisible') });
