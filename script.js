@@ -1,5 +1,3 @@
-let myLibrary = [];
-
 function Book(title, author, pages, read) {
     this.title = title
     this.author = author
@@ -11,15 +9,6 @@ function Book(title, author, pages, read) {
 function addToLibrary(book) {
     myLibrary.push(book);
 }
-
-let coding = new Book('Think Like a Programmer', 'V. Anton Spraul', 233, false);
-
-let cooking = new Book('Cooking with Tomatoes', 'C. Boyardee', 12, true);
-
-let book3 = new Book();
-
-addToLibrary(coding);
-addToLibrary(cooking);
 
 function displayLibrary() {
     list.innerHTML = '';
@@ -58,9 +47,9 @@ function displayLibrary() {
 
         let readBadge = document.createElement('div');
         readBadge.classList.add('read-badge');
-        if (currentBook.read = true) {
-            readBadge.classList.add('invisible');
-        }
+        // if(currentBook.read = false) {
+        //     readBadge.classList.add('invisible');
+        // }
         readBadge.innerText = 'UNREAD';
 
         card.appendChild(deleteBtn);
@@ -83,31 +72,16 @@ function createBook(e) {
     entry.author = document.querySelector('#author').value;
     entry.pages = document.querySelector('#pages').value;
     entry.read = document.querySelector('#read').value;
-    if (document.querySelector('#cover-page').value != undefined) {
+    //If the cover-page url input is not empty, set the cover to the url value in the input
+    if (document.querySelector('#cover-page').value != '') {
         entry.cover = document.querySelector('#cover-page').value;
-    }
-
+    } 
     addToLibrary(entry);
+    //hide and clear the form, update the library
     formBox.classList.add('invisible');
     document.querySelector('form').reset();
     displayLibrary();
 }
-
-
-const list = document.querySelector('.list');
-displayLibrary();
-
-let submit = document.querySelector('#add');
-submit.addEventListener('click', createBook);
-
-let killBox = document.querySelector('#kill-box');
-let formBox = document.querySelector('#form-box');
-let addBtn = document.querySelector('#new-book');
-
-
-killBox.addEventListener('click', function () { formBox.classList.add('invisible') });
-addBtn.addEventListener('click', function () { formBox.classList.remove('invisible') });
-
 
 function updateCards() {
     let cards = document.querySelectorAll('.card');
@@ -125,10 +99,38 @@ function updateCards() {
 
     readBtn.addEventListener('click', function() {
         let read = myLibrary[el.id].read;
-        if (!read) {
-            read = true;
+        if (read) {
             badge.classList.add('invisible');
         }
     });
     }   
 }
+
+const list = document.querySelector('.list');
+let submit = document.querySelector('#add');
+let killBox = document.querySelector('#kill-box');
+let formBox = document.querySelector('#form-box');
+let addBtn = document.querySelector('#new-book');
+
+killBox.addEventListener('click', function () { formBox.classList.add('invisible') });
+addBtn.addEventListener('click', function () { formBox.classList.remove('invisible') });
+submit.addEventListener('click', createBook);
+
+let myLibrary = [];
+
+let coding = new Book('Think Like a Programmer', 'V. Anton Spraul', 233, true);
+
+let cooking = new Book('Cooking with Tomatoes', 'C. Boyardee', 12, false);
+
+let book3 = new Book();
+
+addToLibrary(coding);
+addToLibrary(cooking);
+
+displayLibrary();
+
+
+
+
+
+
