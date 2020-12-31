@@ -3,8 +3,10 @@ function Book(title, author, pages, read) {
     this.author = author
     this.pages = pages
     this.read = read
-    this.cover = 'images/green-book-hi.png'
 }
+
+Book.prototype.cover = 'images/green-book-hi.png';
+Book.prototype.read = true;
 
 function addToLibrary(book) {
     myLibrary.push(book);
@@ -12,7 +14,7 @@ function addToLibrary(book) {
 
 function displayLibrary() {
     list.innerHTML = '';
-    for (let index in myLibrary) {
+    for (const index in myLibrary) {
         let currentBook = myLibrary[index];
         let card = document.createElement('div');
         card.classList.add('card');
@@ -37,28 +39,29 @@ function displayLibrary() {
         pages.classList.add('pages');
         pages.innerText = `${currentBook.pages} pages`;
 
+        let readBadge = document.createElement('div');
+        readBadge.classList.add('read-badge');
+        readBadge.innerText = 'UNREAD';
+        if (currentBook.read) {
+            readBadge.classList.add('invisible');
+        }
+
         let deleteBtn = document.createElement('button');
         deleteBtn.classList.add('delete');
-        deleteBtn.innerText = '-'
+        deleteBtn.innerText = '-';
 
         let readCheck = document.createElement('button');
         readCheck.classList.add('read-button');
-        readCheck.innerText='✔';
+        readCheck.innerText = '✓';
 
-        let readBadge = document.createElement('div');
-        readBadge.classList.add('read-badge');
-        // if(currentBook.read = false) {
-        //     readBadge.classList.add('invisible');
-        // }
-        readBadge.innerText = 'UNREAD';
 
+        card.appendChild(readBadge);
         card.appendChild(deleteBtn);
         card.appendChild(readCheck);
-        card.appendChild(readBadge);
+        card.appendChild(cover);
         info.appendChild(title);
         info.appendChild(author);
         info.appendChild(pages);
-        card.appendChild(cover);
         card.appendChild(info);
         list.appendChild(card);
         updateCards();
@@ -71,7 +74,11 @@ function createBook(e) {
     entry.title = document.querySelector('#title').value;
     entry.author = document.querySelector('#author').value;
     entry.pages = document.querySelector('#pages').value;
-    entry.read = document.querySelector('#read').value;
+    entry.read = document.querySelector('#read').checked;
+    // entry.read = true;
+    // } else {
+    //     entry.read = false;
+    // }
     //If the cover-page url input is not empty, set the cover to the url value in the input
     if (document.querySelector('#cover-page').value != '') {
         entry.cover = document.querySelector('#cover-page').value;
@@ -98,9 +105,12 @@ function updateCards() {
     let badge = el.querySelector('.read-badge');
 
     readBtn.addEventListener('click', function() {
-        let read = myLibrary[el.id].read;
-        if (read) {
+        if (!(myLibrary[el.id].read)){
             badge.classList.add('invisible');
+            myLibrary[el.id].read = true;
+        } else {
+            badge.classList.remove('invisible');
+            myLibrary[el.id].read = false;
         }
     });
     }   
@@ -116,19 +126,20 @@ killBox.addEventListener('click', function () { formBox.classList.add('invisible
 addBtn.addEventListener('click', function () { formBox.classList.remove('invisible') });
 submit.addEventListener('click', createBook);
 
+
+
 let myLibrary = [];
 
-let coding = new Book('Think Like a Programmer', 'V. Anton Spraul', 233, true);
-
-let cooking = new Book('Cooking with Tomatoes', 'C. Boyardee', 12, false);
-
-let book3 = new Book();
-
-addToLibrary(coding);
-addToLibrary(cooking);
-
+let lordOfRing = new Book('The Fellowship of the Ring', 'J.R.R. Tolkein', 423, true);
+lordOfRing.cover = 'https://images-na.ssl-images-amazon.com/images/I/91jBdaRVqML.jpg';
+addToLibrary(lordOfRing);
+let networkCert = new Book('CompTIA Network+ Exam Guide', 'Mike Meyers', 960, false);
+networkCert.cover = 'https://www.mheducation.com/cover-images/Jpeg_400-high/1260458091.jpeg';
+addToLibrary(networkCert);
+let macro = new Book('Macroeconomics, 6th Edition', 'N. Gregory Mankiw', 608, false);
+macro.cover = 'https://images-na.ssl-images-amazon.com/images/I/51bY5RHQLrL._SX391_BO1,204,203,200_.jpg';
+addToLibrary(macro);
 displayLibrary();
-
 
 
 

@@ -55,6 +55,13 @@ h1 {
     height: 235px;
 }
 
+.container {
+    margin: 15px;
+    height: 235px;
+    background: blue;
+    position: fixed;
+}
+
 .info {
     margin: 15px;
 }
@@ -89,19 +96,19 @@ h1 {
 }
 
 .delete {
-    width: 25px;
-    height: 25px;
+    width: 50px;
+    height: 50px;
     position: absolute;
-    right: 28px;
-    top: 0px;
+    left: 30%;
+    top: 128px;
 }
 
 .read-button {
-    width: 25px;
-    height: 25px;
+    width: 50px;
+    height: 50px;
     position: absolute;
-    right: 0px;
-    top: 0px;
+    right: 30%;
+    top: 128px;
 }
 
 .read-badge {
