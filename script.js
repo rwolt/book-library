@@ -23,6 +23,8 @@ function displayLibrary() {
         let cover = document.createElement('img');
         cover.classList.add('bookCover');
         cover.src = currentBook.cover;
+        cover.addEventListener('mouseOver', showInterface);
+        cover.addEventListener('mouseOut', hideInterface);
 
         let info = document.createElement('div');
         info.classList.add('info');
@@ -49,22 +51,28 @@ function displayLibrary() {
         let deleteBtn = document.createElement('button');
         deleteBtn.classList.add('delete');
         deleteBtn.innerText = '-';
-
+        deleteBtn.addEventListener('click', deleteBook);
+  
         let readCheck = document.createElement('button');
         readCheck.classList.add('read-button');
         readCheck.innerText = '✓';
+        readCheck.addEventListener('click', readBook);
 
-
+        let interface = document.createElement('div');
+        interface.classList.add('interface');
+        interface.addEventListener('mouseover', showInterface);
+        interface.addEventListener('mouseout', hideInterface);
+        
+        card.appendChild(cover);
         card.appendChild(readBadge);
         card.appendChild(deleteBtn);
         card.appendChild(readCheck);
-        card.appendChild(cover);
         info.appendChild(title);
         info.appendChild(author);
         info.appendChild(pages);
         card.appendChild(info);
+        card.appendChild(interface);
         list.appendChild(card);
-        updateCards();
     }
 }
 
@@ -82,7 +90,7 @@ function createBook(e) {
     //If the cover-page url input is not empty, set the cover to the url value in the input
     if (document.querySelector('#cover-page').value != '') {
         entry.cover = document.querySelector('#cover-page').value;
-    } 
+    }
     addToLibrary(entry);
     //hide and clear the form, update the library
     formBox.classList.add('invisible');
@@ -90,31 +98,51 @@ function createBook(e) {
     displayLibrary();
 }
 
-function updateCards() {
-    let cards = document.querySelectorAll('.card');
-    
-    for (let el of cards) {
-    let delBtn = el.querySelector('.delete');
-    delBtn.addEventListener('click', function(){
-        let cardIndex = el.id;
-        delete myLibrary[cardIndex];
-        displayLibrary();
-        });
-    
-    let readBtn = el.querySelector('.read-button');
-    let badge = el.querySelector('.read-badge');
-
-    readBtn.addEventListener('click', function() {
-        if (!(myLibrary[el.id].read)){
-            badge.classList.add('invisible');
-            myLibrary[el.id].read = true;
-        } else {
-            badge.classList.remove('invisible');
-            myLibrary[el.id].read = false;
-        }
-    });
-    }   
+function deleteBook(e) {
+    let parent = e.target.parentNode;
+    delete myLibrary[parent.id];
+    displayLibrary();
 }
+
+function readBook(e) {
+    let parent = e.target.parentNode;
+    let badge = parent.querySelector('.read-badge');
+    if (!(myLibrary[parent.id].read)) {
+        badge.classList.add('invisible');
+        myLibrary[parent.id].read = true;
+    } else {
+        badge.classList.remove('invisible');
+        myLibrary[parent.id].read = false;
+    }
+}
+
+function showInterface(e) {
+    let parent = e.target.parentNode;
+    let cover = parent.querySelector('.bookCover');
+    let badge = parent.querySelector('.read-badge');
+    let readBtn = parent.querySelector('.read-button');
+    let delBtn = parent.querySelector('.delete');
+    readBtn.classList.remove('invisible');
+    delBtn.classList.remove('invisible');
+    badge.classList.add('low-brightness');
+
+    cover.classList.add('low-brightness');
+
+}
+
+function hideInterface(e) {
+    let parent = e.target.parentNode;
+    let cover = parent.querySelector('.bookCover');
+    let badge = parent.querySelector('.read-badge');
+    let readBtn = parent.querySelector('.read-button');
+    let delBtn = parent.querySelector('.delete');
+    readBtn.classList.add('invisible');
+    delBtn.classList.add('invisible');
+    cover.classList.remove('low-brightness');
+    badge.classList.remove('low-brightness');
+}
+
+
 
 const list = document.querySelector('.list');
 let submit = document.querySelector('#add');
