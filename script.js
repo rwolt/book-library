@@ -48,25 +48,27 @@ function displayLibrary() {
             readBadge.classList.add('invisible');
         }
 
-        let deleteBtn = document.createElement('button');
+        let deleteBtn = document.createElement('div');
         deleteBtn.classList.add('delete');
         deleteBtn.innerText = '-';
+        deleteBtn.classList.add('hidden');
         deleteBtn.addEventListener('click', deleteBook);
   
-        let readCheck = document.createElement('button');
+        let readCheck = document.createElement('div');
         readCheck.classList.add('read-button');
         readCheck.innerText = '✓';
+        readCheck.classList.add('hidden');
         readCheck.addEventListener('click', readBook);
 
         let interface = document.createElement('div');
         interface.classList.add('interface');
-        interface.addEventListener('mouseover', showInterface);
-        interface.addEventListener('mouseout', hideInterface);
+        interface.addEventListener('mouseover', showInterface, true);
+        interface.addEventListener('mouseleave', hideInterface, true);
         
         card.appendChild(cover);
         card.appendChild(readBadge);
-        card.appendChild(deleteBtn);
-        card.appendChild(readCheck);
+        interface.appendChild(deleteBtn);
+        interface.appendChild(readCheck);
         info.appendChild(title);
         info.appendChild(author);
         info.appendChild(pages);
@@ -99,20 +101,20 @@ function createBook(e) {
 }
 
 function deleteBook(e) {
-    let parent = e.target.parentNode;
-    delete myLibrary[parent.id];
+    let grandParent = e.target.parentNode.parentNode;
+    delete myLibrary[grandParent.id];
     displayLibrary();
 }
 
 function readBook(e) {
-    let parent = e.target.parentNode;
-    let badge = parent.querySelector('.read-badge');
-    if (!(myLibrary[parent.id].read)) {
+    let grandParent = e.target.parentNode.parentNode;
+    let badge = grandParent.querySelector('.read-badge');
+    if (!(myLibrary[grandParent.id].read)) {
         badge.classList.add('invisible');
-        myLibrary[parent.id].read = true;
+        myLibrary[grandParent.id].read = true;
     } else {
         badge.classList.remove('invisible');
-        myLibrary[parent.id].read = false;
+        myLibrary[grandParent.id].read = false;
     }
 }
 
@@ -122,10 +124,9 @@ function showInterface(e) {
     let badge = parent.querySelector('.read-badge');
     let readBtn = parent.querySelector('.read-button');
     let delBtn = parent.querySelector('.delete');
-    readBtn.classList.remove('invisible');
-    delBtn.classList.remove('invisible');
+    readBtn.classList.remove('hidden');
+    delBtn.classList.remove('hidden');
     badge.classList.add('low-brightness');
-
     cover.classList.add('low-brightness');
 
 }
@@ -136,8 +137,8 @@ function hideInterface(e) {
     let badge = parent.querySelector('.read-badge');
     let readBtn = parent.querySelector('.read-button');
     let delBtn = parent.querySelector('.delete');
-    readBtn.classList.add('invisible');
-    delBtn.classList.add('invisible');
+    readBtn.classList.add('hidden');
+    delBtn.classList.add('hidden');
     cover.classList.remove('low-brightness');
     badge.classList.remove('low-brightness');
 }
