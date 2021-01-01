@@ -7,9 +7,31 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <div class="list">
-        <div class="card"><span class="title">How To Win Friends and Influence People</span></span></div>
+    <div class="header"><h1>My Library</h1><button id="new-book">Add Book</button></div>
+    <div class="list"></div>
+
+    <div id="form-box" class="invisible">
+    <button id="kill-box">Kill Box</button><br>
+    <form>
+
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title"><br>
+
+        <label for="author">Author: </label>
+        <input type="text" name="author" id="author"><br>
+
+        <label for="pages">Pages: </label>
+        <input type="text" name="pages" id="pages"><br>
+
+        <label for="read">Read: </label>
+        <input type="checkbox" name="read" id="read"><br>
+
+        <label for="cover">Cover Image URL: </label>
+        <input type="text" name="cover" id="cover-page"><br>
+        <button id="add">Add Book to Library</button>
+    </form>
     </div>
+
 <script src="script.js"></script>
 </body>
 </html>
