@@ -1,18 +1,20 @@
-function Book(title, author, pages, read) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-}
+class Book{
 
-Book.prototype.cover = 'images/green-book-hi.png';
-Book.prototype.read = true;
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
 
-function addToLibrary(book) {
-    myLibrary.push(book);
-}
+    // Book.prototype.cover = 'images/green-book-hi.png';
+    // Book.prototype.read = true;
 
-function displayLibrary() {
+    addToLibrary(book) {
+        myLibrary.push(book);
+    }
+
+    displayLibrary() {
     list.innerHTML = '';
     for (const index in myLibrary) {
         let currentBook = myLibrary[index];
@@ -60,87 +62,85 @@ function displayLibrary() {
         readCheck.classList.add('hidden');
         readCheck.addEventListener('click', readBook);
 
-        let interface = document.createElement('div');
-        interface.classList.add('interface');
-        interface.addEventListener('mouseover', showInterface, true);
-        interface.addEventListener('mouseleave', hideInterface, true);
+        // let interface = document.createElement('div');
+        // interface.classList.add('interface');
+        // interface.addEventListener('mouseover', showInterface, true);
+        // interface.addEventListener('mouseleave', hideInterface, true);
         
         card.appendChild(cover);
         card.appendChild(readBadge);
-        interface.appendChild(deleteBtn);
-        interface.appendChild(readCheck);
+        // interface.appendChild(deleteBtn);
+        // interface.appendChild(readCheck);
         info.appendChild(title);
         info.appendChild(author);
         info.appendChild(pages);
         card.appendChild(info);
-        card.appendChild(interface);
+        // card.appendChild(interface);
         list.appendChild(card);
+        }
     }
-}
 
-function createBook(e) {
-    e.preventDefault();
-    let entry = new Book()
-    entry.title = document.querySelector('#title').value;
-    entry.author = document.querySelector('#author').value;
-    entry.pages = document.querySelector('#pages').value;
-    entry.read = document.querySelector('#read').checked;
-    // entry.read = true;
-    // } else {
-    //     entry.read = false;
-    // }
-    //If the cover-page url input is not empty, set the cover to the url value in the input
-    if (document.querySelector('#cover-page').value != '') {
+    createBook(e) {
+        e.preventDefault();
+        let entry = new Book()
+        entry.title = document.querySelector('#title').value;
+        entry.author = document.querySelector('#author').value;
+        entry.pages = document.querySelector('#pages').value;
+        entry.read = document.querySelector('#read').checked;
+
+        //If the cover-page url input is not empty, set the cover to the url value in the input
+        if (document.querySelector('#cover-page').value != '') {
         entry.cover = document.querySelector('#cover-page').value;
-    }
-    addToLibrary(entry);
-    //hide and clear the form, update the library
-    formBox.classList.add('invisible');
-    document.querySelector('form').reset();
-    displayLibrary();
-}
+        }
 
-function deleteBook(e) {
-    let grandParent = e.target.parentNode.parentNode;
-    delete myLibrary[grandParent.id];
-    displayLibrary();
-}
+        addToLibrary(entry);
+        //hide and clear the form, update the library
+        formBox.classList.add('invisible');
+        document.querySelector('form').reset();
+        displayLibrary();
+        }
 
-function readBook(e) {
-    let grandParent = e.target.parentNode.parentNode;
-    let badge = grandParent.querySelector('.read-badge');
-    if (!(myLibrary[grandParent.id].read)) {
-        badge.classList.add('invisible');
-        myLibrary[grandParent.id].read = true;
-    } else {
-        badge.classList.remove('invisible');
-        myLibrary[grandParent.id].read = false;
-    }
-}
+        deleteBook(e) {
+            let grandParent = e.target.parentNode.parentNode;
+            delete myLibrary[grandParent.id];
+            displayLibrary();
+        }
 
-function showInterface(e) {
-    let parent = e.target.parentNode;
-    let cover = parent.querySelector('.bookCover');
-    let badge = parent.querySelector('.read-badge');
-    let readBtn = parent.querySelector('.read-button');
-    let delBtn = parent.querySelector('.delete');
-    readBtn.classList.remove('hidden');
-    delBtn.classList.remove('hidden');
-    badge.classList.add('low-brightness');
-    cover.classList.add('low-brightness');
+        readBook(e) {
+            let grandParent = e.target.parentNode.parentNode;
+            let badge = grandParent.querySelector('.read-badge');
+                if (!(myLibrary[grandParent.id].read)) {
+                    badge.classList.add('invisible');
+                    myLibrary[grandParent.id].read = true;
+                } else {
+                    badge.classList.remove('invisible');
+                    myLibrary[grandParent.id].read = false;
+                }
+        }
 
-}
+        showInterface(e) {
+            let parent = e.target.parentNode;
+            let cover = parent.querySelector('.bookCover');
+            let badge = parent.querySelector('.read-badge');
+            let readBtn = parent.querySelector('.read-button');
+            let delBtn = parent.querySelector('.delete');
+            readBtn.classList.remove('hidden');
+            delBtn.classList.remove('hidden');
+            badge.classList.add('low-brightness');
+            cover.classList.add('low-brightness');
+        }
 
-function hideInterface(e) {
-    let parent = e.target.parentNode;
-    let cover = parent.querySelector('.bookCover');
-    let badge = parent.querySelector('.read-badge');
-    let readBtn = parent.querySelector('.read-button');
-    let delBtn = parent.querySelector('.delete');
-    readBtn.classList.add('hidden');
-    delBtn.classList.add('hidden');
-    cover.classList.remove('low-brightness');
-    badge.classList.remove('low-brightness');
+        hideInterface(e) {
+            let parent = e.target.parentNode;
+            let cover = parent.querySelector('.bookCover');
+            let badge = parent.querySelector('.read-badge');
+            let readBtn = parent.querySelector('.read-button');
+            let delBtn = parent.querySelector('.delete');
+            readBtn.classList.add('hidden');
+            delBtn.classList.add('hidden');
+            cover.classList.remove('low-brightness');
+            badge.classList.remove('low-brightness');
+        }
 }
 
 
@@ -153,7 +153,7 @@ let addBtn = document.querySelector('#new-book');
 
 killBox.addEventListener('click', function () { formBox.classList.add('invisible') });
 addBtn.addEventListener('click', function () { formBox.classList.remove('invisible') });
-submit.addEventListener('click', createBook);
+submit.addEventListener('click', this.createBook);
 
 
 
